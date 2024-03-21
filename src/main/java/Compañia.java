@@ -20,6 +20,7 @@ public class Compañia {
             if (currentScreen == 0) {
                 switch (op) {
                     case 1: infoTienda();
+                    case 2: nuevaTienda();
                 }
             }
         }
@@ -52,5 +53,19 @@ public class Compañia {
         while (rs.next()) {
             System.out.println("Id: " + rs.getInt("id") + " Dirección: " + rs.getString("dirección") + " Nombre: " + rs.getString("nombre"));
         }
+    }
+
+    private static void nuevaTienda() throws SQLException{
+        Scanner sc = new Scanner(System.in);
+        PreparedStatement st = null;
+        System.out.println("Nombre:");
+        String nombre = sc.nextLine();
+        System.out.println("Dirección: ");
+        String dirección = sc.nextLine();
+        String query = "insert into tienda(dirección, nombre) values (?, ?)";
+        st = con.prepareStatement(query);
+        st.setString(1,dirección);
+        st.setString(2,nombre);
+        st.executeUpdate();
     }
 }
